@@ -16,9 +16,6 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Import data elasticsearch
@@ -47,3 +44,7 @@ curl -XPUT 'http://127.0.0.1:9200/companydatabase?pretty' -H 'Content-Type: appl
 ```bash
 curl -XPOST "http://127.0.0.1:9200/companydatabase/_bulk" --header "Content-Type: application/json" --data-binary "@data/Employees50K.json"
 ```
+
+## Problem Statement
+
+The project is not done due to error that i can't solve right now. sElasticsearch client and server version is 6.8.0 but always raise an error "Content-Type header [application/vnd.elasticsearch+json; compatible-with=8] is not supported". I have tried to change the Content-Type header to application/json but it still raise an error "only one Content-Type header should be provided". When i upgrade the elasticsearch server to 7.10.2, the data cannot be imported because removal of mapping types.
