@@ -1,18 +1,6 @@
 services:
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=mysql
-      - MYSQL_DATABASE=mydatabase # Optional: Specify the database name
-    container_name: mysql
-    volumes:
-      - ./mysqldata:/var/lib/mysql
-    ports:
-      - '3306:3306'
-
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
@@ -20,6 +8,7 @@ services:
       - ./elasticsearchdata:/usr/share/elasticsearch/data
     ports:
       - '9200:9200'
+      - '9300:9300'
 
   app:
     build:
@@ -31,13 +20,10 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - db
       - elasticsearch
     volumes:
       - ./src:/app/src
 
 networks:
   app-network:
-    driver: bridge
-  elasticsearch:
     driver: bridge
